@@ -1382,7 +1382,7 @@ modbus:
 ```
 
 
-### Example: sensor full configuration
+### Example: sensor full configuration 1
 
 Example temperature sensor with a default scan interval:
 
@@ -1404,6 +1404,38 @@ modbus:
         offset: 0
         precision: 1
         data_type: integer
+```
+
+### Example: sensor full configuration 2
+
+Example power sensor:
+
+```yaml
+modbus:
+  - name: PowerMetering_Modbus_RTU
+    #delay: 0
+    message_wait_milliseconds: 30 #Default for serial connection
+    type: serial
+    baudrate: 9600
+    bytesize: 8
+    stopbits: 1
+    parity: N
+    method: rtu
+    port: /dev/ttyUSB0
+    sensors:
+      - name: Power_001
+        unique_id: Power_Devicename1
+        scan_interval: 1
+        slave: 1
+        input_type: input
+        address: 3 #decimal not hexadecimal like often shown in description
+        data_type: int32
+        swap: word #only if the higher integer is behind the lower one, e.g. for PZEM
+        scale: 0.1
+        precision: 1
+        unit_of_measurement: W
+        device_class: power
+        state_class: measurement
 ```
 
 ## Configuring switch entities
